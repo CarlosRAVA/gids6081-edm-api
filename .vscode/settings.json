@@ -1,0 +1,5 @@
+//esta es una extension, para cuando alguien descarga el proyecto pueda tener la configuracion y no la tengan que hacer
+{
+    "material-icon-theme.activeIconPack": "nest"
+}
+

@@ -1,0 +1,1 @@
+Entidad de dato que se va a recibir, es donde se encuentran las validaciones que se necesitan para poder realizar el proceso

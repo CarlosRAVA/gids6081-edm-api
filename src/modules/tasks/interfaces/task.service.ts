@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-
+//npm run start:dev
 @Injectable() //los servicios se inyectan en un constructor
 export class TaskService { 
 
@@ -7,7 +7,7 @@ export class TaskService {
         return "Lista de tareas";
     }
     public getTaskById(id: number): string {
-        return "Obteniendo la tarea ${id}";
+        return `Obteniendo la tarea ${id}`;
     }
     public updateTask(task: any): any {
         return task;
@@ -16,6 +16,7 @@ export class TaskService {
         return task;
     }
     public deleteTask(id: number): any {
-        return 'Eliminando la tarea ${id}';
+        return `Eliminando la tarea ${id}`;
     }
 }
+

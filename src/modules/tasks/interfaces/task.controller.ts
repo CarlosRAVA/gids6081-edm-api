@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { TaskService } from "./task.service";
+import { CreateTaskDto } from "../dto/create-task.dto";
 
 
 @Controller("api/task")
@@ -21,7 +22,8 @@ export class TaskController {
     }
 
     @Post() //el insert se debe de enviar por medio del body, por si solo no se puede enviar datos
-    public insertTask(task: any){
+    public insertTask(@Body() task: CreateTaskDto): any{ //@Body es un decorator, siempre inician con un @
+        console.error("insert", typeof task);
         return this.taskSvc.insertTask(task);
     }
 

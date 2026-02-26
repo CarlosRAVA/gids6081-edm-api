@@ -10,8 +10,8 @@ export class TaskController {
 
     //! http: localhost: 3000/api/task
     @Get()
-    public getAllTask(): string { //es importante especificar que tipo de dato se esta retornando
-        return this.taskSvc.getAllTask();
+    async getAllTask(): Promise<any[]> { //es importante especificar que tipo de dato se esta retornando
+        return await this.taskSvc.getAllTask();
     }
 
     //! http: localhost: 3000/api/task/17

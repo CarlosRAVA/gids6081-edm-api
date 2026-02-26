@@ -14,3 +14,11 @@ bootstrap();
 
 
 //! git commit -a -m "fix: Correcion de estructura de objetos"
+
+//? MYSQL
+//! npm i mysql2
+//! npm i @types/mysql -D
+
+//? POSTGRES
+//! npm i pg
+//! npm i @types/pg

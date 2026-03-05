@@ -39,3 +39,9 @@ bootstrap();
 
 //? SWAGGER
 //! npm i @nestjs/swagger
+
+//! git commit -a -m "fix: CRUD funcional con Bases de datos y configuracion de SWAGGER"
+
+//!--datasource-provider mysql
+
+//! git commit -m -a "Fix: uso de prisma y correcion del crud (task)"

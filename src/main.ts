@@ -45,3 +45,9 @@ bootstrap();
 //!--datasource-provider mysql
 
 //! git commit -m -a "Fix: uso de prisma y correcion del crud (task)"
+
+//? BCRYPT
+//! npm i bcrypt
+//! npm i -D @types/bcrypt
+
+//!

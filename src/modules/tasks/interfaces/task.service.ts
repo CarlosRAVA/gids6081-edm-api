@@ -12,16 +12,8 @@ export class TaskService {
         private prisma: PrismaService
     ) {}
 
+    //obtener las tareas
     public async getAllTask(): Promise<Task[]> {
-        //codigo crudo con queries expuestas en el servicio
-        /* const query = `SELECT * FROM tasks ORDER BY name ASC`;
-
-        const [results] = await this.mysql.query(query);
-        console.log(results);
-
-        return results as Task[] //con esto se indica que es arreglo de tareas; */
-
-        //codigo con prisma
         const tasks = await this.prisma.task.findMany({
             orderBy: [ { name: "asc" } ]
         });
@@ -30,12 +22,8 @@ export class TaskService {
     }
 
 
+    //obtener las tareas por id
     public async getTaskById(id: number): Promise<Task | null> { //el id: number cumple para el elemento parametrizado mas abajo
-        /* const query = `SELECT * FROM tasks WHERE id = ${ id }`;
-
-        const [result] = await this.mysql.query(query);
-
-        return result[0] as Task; */
         const task = await this.prisma.task.findUnique({
             where: { id } //elemento parametrizado si el parametro se llama igual al que se setea aqui se puede dejar como {id} nadamas
         });
@@ -44,19 +32,8 @@ export class TaskService {
     }
 
 
+    //actualizar tarea
     public async updateTask(id: number, taskUpdated: updateTaskDto): Promise<Task> {
-        /* const task = await this.getTaskById(id);
-        task.name = taskUpdated.name ?? task.name;
-        
-        task.description = taskUpdated.description ?? task.description;
-        
-        task.priority = taskUpdated.priority ?? task.priority;
-        
-        const query = `UPDATE tasks SET name = '${task.name}', description = '${task.description}', priority = ${task.priority} WHERE id = ${id}`;
-
-        await this.mysql.query(query);
-
-        return await this.getTaskById(id); */
         const task = await this.prisma.task.update({
             where: { id },
             data: taskUpdated
@@ -67,11 +44,6 @@ export class TaskService {
 
     //insertar
     public async insertTask(task: CreateTaskDto): Promise<Task> {
-        /* const sql = `INSERT INTO tasks (name, description, priority, user_id) VALUES ('${ task.name }', '${task.description}', ${task.priority} ,${task.user_id} )`;
-
-        const [results] = await this.mysql.query(sql);
-        const insertId = results.insertId;
-        return await this.getTaskById(insertId); */
         const newTask = await this.prisma.task.create({
             data: task
         });
@@ -80,11 +52,8 @@ export class TaskService {
     }
 
 
+    //eliminar una tarea
     public async deleteTask(id: number): Promise<Task> {
-        /* const query = `DELETE FROM tasks WHERE id = ${id}`;
-        const [result] = await this.mysql.query(query);
-
-        return result.affectedRows > 0; */
         const task = await this.prisma.task.delete({
             where: {id}
         });

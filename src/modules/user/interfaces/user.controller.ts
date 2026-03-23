@@ -1,11 +1,14 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "@prisma/client";
 import { UpdateUserDto } from "../dto/update-user.dto";
 import { CreateUserDto } from "../dto/create-user.dto";
 import { UtilService } from "src/common/services/util.service";
+import { AuthGuard } from "src/common/guards/auth.guard";
+
 
 @Controller("api/user")
+@UseGuards(AuthGuard)
 export class UserController {
 
     constructor(private userSvc: UserService, private readonly utilSvc: UtilService) { }
@@ -36,13 +39,6 @@ export class UserController {
 
     @Post() //el insert se debe de enviar por medio del body, por si solo no se puede enviar datos
     public async insertUser(@Body() user: CreateUserDto): Promise<User> { //@Body es un decorator, siempre inician con un @
-
-        //verificacion de nombre de usuario
-       /*  const currentUser = await this.userSvc.getUserByUsername(user.username);
-        if (currentUser)
-            throw new HttpException("Nombre de usuario no disponible", HttpStatus.CONFLICT) */
-
-        //insercion de informacion
         const encryptedPassword = await this.utilSvc.hashPassword(user.password);
         
 

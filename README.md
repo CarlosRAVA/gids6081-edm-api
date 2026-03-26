@@ -98,6 +98,8 @@ Para sincronizar la base de datos se tiene que utilizar:
 
 '''' CMD
 npx prisma migrate dev --name [name_version]
+
+npx prisma generate
 ''''
 
 ## License

@@ -39,7 +39,7 @@ export class UserController {
 
     @Post() //el insert se debe de enviar por medio del body, por si solo no se puede enviar datos
     public async insertUser(@Body() user: CreateUserDto): Promise<User> { //@Body es un decorator, siempre inician con un @
-        const encryptedPassword = await this.utilSvc.hashPassword(user.password);
+        const encryptedPassword = await this.utilSvc.hash(user.password);
         
 
         const result = this.userSvc.insertUser(user);

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UnauthorizedException } from "@nestjs/common";
+import { Body, Controller, ForbiddenException, Get, HttpCode, HttpStatus, Post, Req, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "../dto/login.dto";
 import { UtilService } from "src/common/services/util.service";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("api/auth")
 export class AuthController {
@@ -28,15 +29,20 @@ export class AuthController {
             const { password, username, ...payload } = user; //segmentacion dee que recibira el payload
 
             // Generar el JWT
-            const access_token = await this.utilSvc.generateJWT(payload);
+            const access_token = await this.utilSvc.generateJWT(payload, '1h');
 
-            // Geenerar el refresh token
+            // Generar el refresh token
             const refresh_token = await this.utilSvc.generateJWT(payload, '7d');
+            const hashRT = await this.utilSvc.hash(refresh_token);
+            
+            // Agregar el hash al usuario
+            await this.authSvc.updateHash(user.id, hashRT);
+            payload.hash = hashRT;
 
             // devolver el JWT encriptado
             return {
                 access_token,
-                refresh_token
+                refresh_token: hashRT
             }
 
         } else {
@@ -47,18 +53,38 @@ export class AuthController {
 
 
     @Get("/me")
-    public getProfile() {
-
+    @UseGuards(AuthGuard)
+    public getProfile(@Req() request: any) {
+        const user = request['user'];
+        return user;
     }
 
     @Post("/refresh")
-    public refreshToken() {
+    @UseGuards(AuthGuard)
+    public async refreshToken(@Req() request: any) {
+        // Obtener el usuario en sesion
+        const sessionUser = request['user'];
+        const user = await this.authSvc.getUserById(sessionUser.id);
+        if ( !user || !user.hash) throw new ForbiddenException('Acceso Denegado');
 
+        //Comparar el token recibido con el token guardado
+        if (sessionUser.hash != user.hash) throw new ForbiddenException('Token invalido');
+
+
+        // FIXME: Si el token es valido se generan nuevos tokens
+        return {
+            access_token: '',
+            refresh_token: ''
+        }
     }
 
     @Post("/logout")
-    public logout() {
-
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @UseGuards(AuthGuard)
+    public async logout(@Req() request: any) {
+        const session = request['user'];
+        const user = await this.authSvc.updateHash(session.id, null);
+        return user;
     }
 
-}
+}   

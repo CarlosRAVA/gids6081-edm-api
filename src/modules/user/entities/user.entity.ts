@@ -3,5 +3,7 @@ export class User {
     name: string;
     lastname: string;   
     username: string;
-    password: string;
+    hash?: string | null | undefined;
+    password?: string;
+    created_at: Date;
 }

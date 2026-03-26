@@ -23,6 +23,7 @@ export class UserService {
                 lastname: true,
                 username: true,
                 password: true, //deberia ser false
+                hash: true,
                 created_at: true
             }
         });
@@ -39,6 +40,7 @@ export class UserService {
                 lastname: true,
                 username: true,
                 password: true, //debe de ser false
+                hash: true,
                 created_at: true
             }
         });

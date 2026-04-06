@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AllExceptionfilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); //el "appmodule es el que contiene todas las rutas"
@@ -9,6 +10,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true
   })) //ya se tiene el validation pipe de forma global para todo el proyecto
+
+  //Uso de filtros globales 
+  app.useGlobalFilters(new AllExceptionfilter)
 
   //Configuracion de swagger 
   const config = new DocumentBuilder()
@@ -53,3 +57,7 @@ bootstrap();
 //! git commit -m "fix: CRUD de usuarios y creacion de rutas para la autenticacion"
 
 //! git commit -m "fix: Inicio de sesion compleeto y proteccion de rutas"
+
+//! git commit -m "bug: correccion de inicio de sesion y configuracion de rutas (me/logout, refresh)"
+
+//!

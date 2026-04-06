@@ -32,3 +32,14 @@ model Task {
   user_id Int
   user User @relation(fields: [user_id], references: [id]) //se necesita declarar la relacion que tendra si sera de 1 a muchos o muchos a muchos
 }
+
+model Logs {
+  id Int @default(autoincrement()) @id 
+  statusCode Int 
+  timestamp DateTime
+  path String @db.MediumText()
+  error String @db.MediumText()
+  errorCode String @db.MediumText()
+  session_id Int
+  user User @relation(fields: [session_id], references: [id])
+}

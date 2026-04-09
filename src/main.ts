@@ -60,4 +60,4 @@ bootstrap();
 
 //! git commit -m "bug: correccion de inicio de sesion y configuracion de rutas (me/logout, refresh)"
 
-//!
+//! git commit -m "fix: Uso de custom errors y creacion de logs"|

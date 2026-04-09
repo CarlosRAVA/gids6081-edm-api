@@ -2,18 +2,13 @@ import { Module } from "@nestjs/common";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { PrismaService } from "src/common/services/prisma.service";
-import { JwtModule } from "@nestjs/jwt";
 import { UtilService } from "src/common/services/util.service";
 
 @Module({
-    imports: [ JwtModule.register({
-        global: true,
-        secret: process.env.JWT_SECRET,
-        signOptions: { expiresIn: '60s'}
-    })],
-    controllers: [AuthController], //puede tener mas de 1 controlador
-    providers: [AuthService, PrismaService, UtilService] //el proveedor es el servicio
+  imports: [],
+  controllers: [AuthController],
+  providers: [AuthService, PrismaService, UtilService], // 👈 útil si lo usas en otros módulos
 })
-export class AuthModule { }
+export class AuthModule {}
 
 //! agregar el secret de jwt (configuracion del mismo)

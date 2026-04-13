@@ -2,7 +2,7 @@ import { Body, Controller, ForbiddenException, GatewayTimeoutException, Get, Htt
 import { AuthService } from "./auth.service";
 import { LoginDto } from "../dto/login.dto";
 import { UtilService } from "src/common/services/util.service";
-import { AuthGuard } from "@nestjs/passport";
+import { AuthGuard } from "src/common/guards/auth.guard";
 import { AppException } from "src/common/exceptions/app.exception";
 
 @Controller("api/auth")
@@ -43,7 +43,7 @@ export class AuthController {
             // devolver el JWT encriptado
             return {
                 access_token,
-                refresh_token: hashRT
+                refresh_token//: hashRT
             }
 
         } else {

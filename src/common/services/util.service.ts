@@ -12,7 +12,7 @@ export class UtilService {
     }
 
     public async checkPassword(password: string, encryptedPassword: string) {
-        return await bcrypt.compareSync(password, encryptedPassword);
+        return bcrypt.compareSync(password, encryptedPassword);
     }
 
     public async generateJWT(payload: any, expiresIn: any = '1h') {

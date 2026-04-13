@@ -8,7 +8,6 @@ import { AuthGuard } from "src/common/guards/auth.guard";
 
 
 @Controller("api/user")
-@UseGuards(AuthGuard)
 export class UserController {
 
     constructor(private userSvc: UserService, private readonly utilSvc: UtilService) { }
@@ -33,6 +32,7 @@ export class UserController {
     }
 
     @Put(":id")
+    @UseGuards(AuthGuard)
     public async updateUser(@Param("id", ParseIntPipe) id: number, @Body() task: UpdateUserDto): Promise<User> {
         return await this.userSvc.updateUser(id, task);
     }
@@ -41,8 +41,9 @@ export class UserController {
     public async insertUser(@Body() user: CreateUserDto): Promise<User> { //@Body es un decorator, siempre inician con un @
         const encryptedPassword = await this.utilSvc.hash(user.password);
         
+        user.password = encryptedPassword;
 
-        const result = this.userSvc.insertUser(user);
+        const result = await this.userSvc.insertUser(user);
 
         if (result == undefined)
             throw new HttpException("Usuario no registrada", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,6 +52,7 @@ export class UserController {
     }
 
     @Delete(":id")
+    @UseGuards(AuthGuard)
     public async deleteUser(@Param("id", ParseIntPipe) id: number): Promise<boolean> {
         try {
             await this.userSvc.deleteUser(id);

@@ -6,23 +6,23 @@ export class CreateUserDto{
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(100)
-    name: string;
+    name!: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(100)
-    lastname: string;
+    lastname!: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(100)
-    username: string;
+    username!: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(5)
     @MaxLength(16)
-    password: string;
+    password!: string;
 }

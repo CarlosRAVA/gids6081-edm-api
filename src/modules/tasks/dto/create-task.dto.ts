@@ -6,22 +6,22 @@ export class CreateTaskDto{
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(100)
-    name: string;
+    name!: string;
 
     @IsString()
     @IsNotEmpty({ message: 'El campo es requerido'})
     @MinLength(3)
     @MaxLength(250)
-    description: string;
+    description!: string;
 
     @IsNotEmpty()
     @IsBoolean({})
-    priority: boolean;
+    priority!: boolean;
 
 
     @IsNumber()
     @IsInt()
-    user_id: number;
+    user_id!: number;
 
     
 }

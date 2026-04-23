@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({ //esto esta dentro de un modulo
   imports: [AuthModule, TaskModule, UserModule,ConfigModule.forRoot({isGlobal: true}),
     JwtModule.registerAsync({
-      global: true, // 👈 ESTO LO HACE GLOBAL EN TODA LA APP
+      global: true, // ESTO LO HACE GLOBAL EN TODA LA APP
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),

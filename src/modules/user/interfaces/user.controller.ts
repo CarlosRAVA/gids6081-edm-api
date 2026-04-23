@@ -46,7 +46,7 @@ export class UserController {
         const result = await this.userSvc.insertUser(user);
 
         if (result == undefined)
-            throw new HttpException("Usuario no registrada", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException("Usuario no registrado", HttpStatus.INTERNAL_SERVER_ERROR);
 
         return result;
     }

@@ -4,15 +4,22 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionfilter } from './common/filters/http-exception.filter';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); //el "appmodule es el que contiene todas las rutas"
+
+  app.enableCors({
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    credentials: true,
+  });
+
   //uso de pipes de forma global
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true
   })) //ya se tiene el validation pipe de forma global para todo el proyecto
 
   //Uso de filtros globales 
-  app.useGlobalFilters(new AllExceptionfilter)
+  app.useGlobalFilters(new AllExceptionfilter());
 
   //Configuracion de swagger 
   const config = new DocumentBuilder()

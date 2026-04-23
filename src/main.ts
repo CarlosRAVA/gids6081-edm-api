@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionfilter } from './common/filters/http-exception.filter';
+import { PrismaService } from './common/services/prisma.service';
 
 
 async function bootstrap() {
@@ -19,7 +20,8 @@ async function bootstrap() {
   })) //ya se tiene el validation pipe de forma global para todo el proyecto
 
   //Uso de filtros globales 
-  app.useGlobalFilters(new AllExceptionfilter());
+ const prismaService = app.get(PrismaService);
+app.useGlobalFilters(new AllExceptionfilter(prismaService));
 
   //Configuracion de swagger 
   const config = new DocumentBuilder()

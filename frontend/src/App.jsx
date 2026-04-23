@@ -3,6 +3,8 @@ import { useState } from "react";
 import Login from "./pages/Login";
 import Tasks from "./pages/Tasks";
 import Register from "./pages/Register";
+import Logs from "./pages/Logs";
+import Profile from "./pages/Profile";
 
 // Decodifica el payload del JWT sin librerías externas
 function getUserIdFromToken(token) {
@@ -30,10 +32,12 @@ function App() {
         path="/register"
         element={!token ? <Register /> : <Navigate to="/tasks" />}
       />
+      <Route path="/logs" element={token ? <Logs onLogout={() => setToken(null)} /> : <Navigate to="/" />} />
       <Route
         path="/tasks"
         element={token ? <Tasks userId={userId} onLogout={() => setToken(null)} /> : <Navigate to="/" />}
       />
+      <Route path="/profile" element={token ? <Profile onLogout={() => setToken(null)} /> : <Navigate to="/" />} />
     </Routes>
   );
 }

@@ -3,11 +3,12 @@ import { AuthModule } from './modules/auth/interfaces/auth.module';
 import { TaskModule } from './modules/tasks/interfaces/task.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './modules/user/interfaces/user.module';
+import { LogsModule } from './modules/interfaces/logs.module';
 import { UtilService } from './common/services/util.service';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({ //esto esta dentro de un modulo
-  imports: [AuthModule, TaskModule, UserModule,ConfigModule.forRoot({isGlobal: true}),
+  imports: [AuthModule, TaskModule, UserModule, LogsModule, ConfigModule.forRoot({isGlobal: true}),
     JwtModule.registerAsync({
       global: true, // ESTO LO HACE GLOBAL EN TODA LA APP
       inject: [ConfigService],

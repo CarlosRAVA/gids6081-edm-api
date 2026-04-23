@@ -22,8 +22,9 @@ export class UserService {
                 name: true,
                 lastname: true,
                 username: true,
-                password: true, //deberia ser false
+                password: true, 
                 hash: true,
+                role: true,
                 created_at: true
             }
         });
@@ -39,8 +40,9 @@ export class UserService {
                 name: true,
                 lastname: true,
                 username: true,
-                password: true, //debe de ser false
+                password: true, 
                 hash: true,
+                role: true,
                 created_at: true
             }
         });

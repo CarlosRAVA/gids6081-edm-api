@@ -12,6 +12,11 @@ datasource db {
   provider = "mysql"
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(200)
@@ -19,6 +24,7 @@ model User {
   username   String   @db.VarChar(100)
   password   String   @db.LongText
   hash       String?  @db.LongText
+  role       Role     @default(USER)
   created_at DateTime @default(now())
   task       Task[] //un usuario puede tener varias tareas
   logs       Logs[]
